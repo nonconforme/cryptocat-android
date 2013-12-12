@@ -41,27 +41,19 @@ You will need:
 1. Clone the repo
 
 ```
-    git clone git@github.com/Dirbaio/Cryptocat-Android
+    git clone --recursive git@github.com/cryptocat/cryptocat-android.git
 ```
 
-2. Init and update submodules
-
-```
-    cd Cryptocat-Android
-    git submodule init
-    git submodule update
-```
-
-3. Open the project in IntelliJ IDEA
-4. Go to File -> Project Structure
-5. If you see "Module SDK: Android Platform [invalid]", click New -> Android SDK
-6. Choose the location of the Java and/or Android SDKs when asked.
-7. Go to Run -> Edit Configurations
-8. Click the "+" icon, then choose "Android Application"
-9. Select Module "Cryptocat"
-10. Choose whether you want to launch on emulator or USB device
-11. Click OK.
-12. Now you can compile and run Cryptocat from the IDE! Congratulations! :3
+2. Open the project in IntelliJ IDEA
+3. Go to File -> Project Structure
+4. If you see "Module SDK: Android Platform [invalid]", click New -> Android SDK
+5. Choose the location of the Java and/or Android SDKs when asked.
+6. Go to Run -> Edit Configurations
+7. Click the "+" icon, then choose "Android Application"
+8. Select Module "Cryptocat"
+9. Choose whether you want to launch on emulator or USB device
+10. Click OK.
+11. Now you can compile and run Cryptocat from the IDE! Congratulations! :3
 
 Awesome libraries used
 ---
