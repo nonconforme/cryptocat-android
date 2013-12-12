@@ -41,7 +41,7 @@ You will need:
 1. Clone the repo
 
 ```
-    git clone --recursive git@github.com/Dirbaio/Cryptocat-Android
+    git clone --recursive git@github.com/cryptocat/cryptocat-android.git
 ```
 
 2. Open the project in IntelliJ IDEA
