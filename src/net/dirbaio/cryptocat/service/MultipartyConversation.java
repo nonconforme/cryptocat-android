@@ -41,7 +41,6 @@ public class MultipartyConversation extends Conversation
 
 	private final ArrayList<CryptocatBuddyListener> buddyListeners = new ArrayList<>();
 
-
 	public MultipartyConversation(CryptocatServer server, String roomName, String nickname) throws XMPPException
 	{
 		super(server, nickname);
@@ -49,8 +48,7 @@ public class MultipartyConversation extends Conversation
 		this.id = roomName;
 	}
 
-	public void join()
-	{
+	public void join() throws NoSuchAlgorithmException, XMPPException, NoSuchProviderException {
 		Utils.assertUiThread();
 
 		if (getState() != State.Left)
@@ -62,12 +60,16 @@ public class MultipartyConversation extends Conversation
 
 		//Random cleaning
 		buddiesByName.clear();
+        buddies.clear();
 
 		//Generate keypair
 		privateKey = new byte[32];
 		publicKey = new byte[32];
 		Utils.random.nextBytes(privateKey);
 		Curve25519.keygen(publicKey, null, privateKey);
+
+        me = new Buddy(nickname);
+        me.setPublicKey(publicKey);
 
 		CryptocatService.getInstance().post(new ExceptionRunnable()
 		{
@@ -120,6 +122,8 @@ public class MultipartyConversation extends Conversation
 
                                             //Add buddy to list
                                             Buddy b = new Buddy(from);
+
+                                            b.startPrivateConversation();
                                             buddiesByName.put(from, b);
                                             buddies.add(b);
                                             notifyBuddyListChange();
@@ -271,6 +275,7 @@ public class MultipartyConversation extends Conversation
 				byte[] hisPublicKey = myMessage.message;
                 Buddy b = buddiesByName.get(from);
                 b.setPublicKey(hisPublicKey);
+                b.genSharedSecrets();
                 notifyBuddyListChange();
 				break;
 			}
@@ -457,15 +462,18 @@ public class MultipartyConversation extends Conversation
 
 	public class Buddy
 	{
-
 		public final String nickname;
-		private byte[] publicKey;
-		private byte[] messageSecret, hmacSecret;
-		private OtrConversation conv;
+		public byte[] publicKey;
 
-		private Buddy(String nickname) throws XMPPException {
+		private String otrFingerprint = "NOT YET IMPLEMENTED";
+        private String multipartyFingerprint;
+
+        //Used only if buddy is not me
+        public byte[] messageSecret, hmacSecret;
+        public OtrConversation conv;
+
+        private Buddy(String nickname) {
 			this.nickname = nickname;
-            startPrivateConversation();
 		}
 
         public boolean hasPublicKey()
@@ -475,7 +483,10 @@ public class MultipartyConversation extends Conversation
 
         public void setPublicKey(byte[] publicKey) throws NoSuchProviderException, NoSuchAlgorithmException, XMPPException {
             this.publicKey = publicKey;
+            multipartyFingerprint = makeFingerprint(publicKey);
+		}
 
+        public void genSharedSecrets() throws NoSuchProviderException, NoSuchAlgorithmException {
             //Gen shared secret
             byte[] curve = new byte[32];
             Curve25519.curve(curve, privateKey, publicKey);
@@ -489,7 +500,17 @@ public class MultipartyConversation extends Conversation
 
             System.arraycopy(digest, 0, messageSecret, 0, 32);
             System.arraycopy(digest, 32, hmacSecret, 0, 32);
-		}
+        }
+
+        private String makeFingerprint(byte[] publicKey) throws NoSuchProviderException, NoSuchAlgorithmException {
+            MessageDigest mda = MessageDigest.getInstance("SHA-512", "BC");
+            byte[] digest = mda.digest(publicKey);
+
+            byte[] fingerprint = new byte[20];
+            System.arraycopy(digest, 0, fingerprint, 0, 20);
+
+            return bytesToHex(fingerprint);
+        }
 
 		private byte[] encryptAes(byte[] plaintext, byte[] iv) throws InvalidKeyException, InvalidAlgorithmParameterException, ShortBufferException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException
 		{
@@ -542,7 +563,7 @@ public class MultipartyConversation extends Conversation
 			if(conv != null)
 				throw new IllegalStateException("Conversation already started");
 
-			conv = new OtrConversation(MultipartyConversation.this, nickname);
+			conv = new OtrConversation(MultipartyConversation.this, this);
 			conv.join();
 
 			server.notifyStateChanged();
@@ -552,9 +573,29 @@ public class MultipartyConversation extends Conversation
 		{
 			return conv;
 		}
-	}
 
-	private String getNickname(String full)
+        public String getOtrFingerprint() {
+            return otrFingerprint;
+        }
+
+        public String getMultipartyFingerprint() {
+            return multipartyFingerprint;
+        }
+    }
+
+    final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
+    public static String bytesToHex(byte[] bytes) {
+        char[] hexChars = new char[bytes.length * 2];
+        int v;
+        for ( int j = 0; j < bytes.length; j++ ) {
+            v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
+    }
+
+    private String getNickname(String full)
 	{
 		return full.substring(full.indexOf('/') + 1);
 	}

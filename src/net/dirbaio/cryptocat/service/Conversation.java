@@ -21,6 +21,7 @@ public abstract class Conversation
 	public final String nickname;
 	public String id;
 	public final ArrayList<CryptocatMessage> history = new ArrayList<>();
+    public MultipartyConversation.Buddy me;
 
 	private State state;
     private int unread;
@@ -61,7 +62,7 @@ public abstract class Conversation
         return unread;
     }
 
-	public abstract void join();
+	public abstract void join() throws NoSuchAlgorithmException, XMPPException, NoSuchProviderException;
 	public abstract void leave();
 	public abstract void sendMessage(String msg) throws OtrException, UnsupportedEncodingException, InvalidKeyException, InvalidAlgorithmParameterException, ShortBufferException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchProviderException, XMPPException, NoSuchPaddingException, OtrException;
 

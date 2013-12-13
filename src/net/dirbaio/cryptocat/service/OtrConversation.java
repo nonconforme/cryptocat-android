@@ -16,20 +16,21 @@ import java.security.*;
  */
 public class OtrConversation extends Conversation implements MessageListener, OtrEngineHost
 {
-	public final String buddyNickname;
 	public final MultipartyConversation parent;
-	Chat chat;
+    public final MultipartyConversation.Buddy buddy;
+    Chat chat;
 
     private OtrPolicy otrPolicy;
     private SessionID otrSessionID;
     private OtrEngine otrEngine;
 
-	public OtrConversation(MultipartyConversation parent, String buddyNickname) throws XMPPException
+	public OtrConversation(MultipartyConversation parent, MultipartyConversation.Buddy buddy) throws XMPPException
 	{
 		super(parent.server, parent.nickname);
 		this.parent = parent;
-		this.buddyNickname = buddyNickname;
-		this.id = buddyNickname;
+        this.buddy = buddy;
+		this.id = buddy.nickname;
+        this.me = parent.me;
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
 				try
 				{
 					server.notifyStateChanged();
-					chat = parent.muc.createPrivateChat(parent.roomName +"@"+parent.server.config.conferenceServer+"/"+buddyNickname, OtrConversation.this);
+					chat = parent.muc.createPrivateChat(parent.roomName +"@"+parent.server.config.conferenceServer+"/"+buddy.nickname, OtrConversation.this);
 
                     setState(State.Joined);
                     otrEngine.startSession(otrSessionID);
@@ -118,7 +119,7 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
                 String txt = message.getBody();
                 String plaintext = otrEngine.transformReceiving(otrSessionID, txt);
                 if (plaintext != null)
-                    addMessage(new CryptocatMessage(CryptocatMessage.Type.Message, buddyNickname, plaintext));
+                    addMessage(new CryptocatMessage(CryptocatMessage.Type.Message, buddy.nickname, plaintext));
             }
         });
 	}
@@ -126,7 +127,7 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
 	@Override
 	public String toString()
 	{
-		return "[" + getState() + "] " + parent.roomName +":"+buddyNickname;
+		return "[" + getState() + "] " + parent.roomName +":"+buddy.nickname;
 	}
 
     private void sendRawMessage(final String msg)

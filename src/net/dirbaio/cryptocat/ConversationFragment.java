@@ -1,6 +1,7 @@
 package net.dirbaio.cryptocat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
@@ -56,13 +57,6 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
-	{
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.conversation_menu, menu);
-	}
-
-	@Override
 	protected void onMustUpdateTitle(ActionBar ab)
 	{
 		if(conversation == null) return;
@@ -86,7 +80,7 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 			OtrConversation priv = (OtrConversation) conversation;
 
 			ab.setTitle(priv.parent.roomName);
-			ab.setSubtitle(priv.buddyNickname);
+			ab.setSubtitle(priv.buddy.nickname);
 		}
 	}
 
@@ -177,15 +171,37 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 	}
 
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.conversation_menu, menu);
+    }
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch (item.getItemId())
 		{
-			case R.id.buddies:
-				callbacks.showSecondaryMenu();
-				return true;
+            case R.id.buddies:
+                callbacks.showSecondaryMenu();
+                return true;
+            case R.id.myinfo:
+                showInfo(conversation.me);
+                return true;
+            case R.id.leave:
+                conversation.leave();
+                return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+    private void showInfo(MultipartyConversation.Buddy b)
+    {
+        Intent intent = new Intent(this.getActivity(), BuddyInfoActivity.class);
+        intent.putExtra(BuddyInfoActivity.EXTRA_TITLE, b.nickname);
+        intent.putExtra(BuddyInfoActivity.EXTRA_MULTIPARTY_FINGERPRINT, b.getMultipartyFingerprint());
+        intent.putExtra(BuddyInfoActivity.EXTRA_OTR_FINGERPRINT, b.getOtrFingerprint());
+        startActivity(intent);
+    }
 }

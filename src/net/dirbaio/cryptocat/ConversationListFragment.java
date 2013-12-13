@@ -71,12 +71,6 @@ public class ConversationListFragment extends BaseListFragment implements Crypto
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
-	{
-		inflater.inflate(R.menu.conversation_list_menu, menu);
-	}
-
-	@Override
 	public void onResume()
 	{
 		super.onResume();
@@ -248,6 +242,13 @@ public class ConversationListFragment extends BaseListFragment implements Crypto
 		ab.setTitle("Cryptocat");
 		ab.setSubtitle(null);
 	}
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        if(conversation == null)
+            inflater.inflate(R.menu.conversation_list_menu, menu);
+    }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)

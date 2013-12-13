@@ -7,10 +7,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import net.dirbaio.cryptocat.service.CryptocatServer;
 import net.dirbaio.cryptocat.service.CryptocatStateListener;
 import net.dirbaio.cryptocat.service.MultipartyConversation;
 import org.jivesoftware.smack.XMPPException;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 public class ServerDetailFragment extends BaseFragment implements CryptocatStateListener
 {
@@ -90,8 +95,12 @@ public class ServerDetailFragment extends BaseFragment implements CryptocatState
 				catch (XMPPException e)
 				{
 					e.printStackTrace();
-				}
-			}
+				} catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (NoSuchProviderException e) {
+                    e.printStackTrace();
+                }
+            }
 		});
 
 		final Button button2 = (Button) rootView.findViewById(R.id.reconnect_button);
@@ -109,7 +118,12 @@ public class ServerDetailFragment extends BaseFragment implements CryptocatState
 	@Override
 	protected void onMustUpdateTitle(ActionBar ab)
 	{
-		ab.setTitle("Join chat room");
-		ab.setSubtitle(server.config.server);
+        ab.setTitle(server.config.server);
+        ab.setSubtitle("Join chat room");
 	}
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+    }
 }

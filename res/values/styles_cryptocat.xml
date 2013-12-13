@@ -37,10 +37,15 @@
     </style>
 
 
-    <style name="SlidingMenu" parent="@android:style/Theme.Holo">
-        <item name="android:windowBackground">@color/sidebar_bg</item>
-        <item name="android:textColor">@color/sidebar_text</item>
-    </style>
+	<style name="SlidingMenu" parent="@android:style/Theme.Holo">
+		<item name="android:windowBackground">@color/sidebar_bg</item>
+		<item name="android:textColor">@color/sidebar_text</item>
+	</style>
+
+	<style name="CryptocatDialog" parent="@android:style/Theme.Holo.Dialog">
+		<item name="android:windowBackground">@color/sidebar_bg</item>
+		<item name="android:textColor">@color/sidebar_text</item>
+	</style>
 
     <style name="ConversationBottom">
         <item name="android:background">@color/bg_med</item>
