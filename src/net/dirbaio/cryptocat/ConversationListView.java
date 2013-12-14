@@ -122,9 +122,9 @@ public class ConversationListView extends ListView
                     //Choose drawable
                     NinePatchDrawable bubble;
                     if(msg.type == CryptocatMessage.Type.MessageMine)
-                        bubble = (NinePatchDrawable) getResources().getDrawable(R.drawable.bubble);
-                    else
                         bubble = (NinePatchDrawable) getResources().getDrawable(R.drawable.bubble_rev);
+                    else
+                        bubble = (NinePatchDrawable) getResources().getDrawable(R.drawable.bubble);
 
                     bubble.getPadding(tempRect);
 

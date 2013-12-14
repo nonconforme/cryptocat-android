@@ -32,7 +32,7 @@
 			android:textColor="#ffffff"
 			android:minWidth="70dp"
 			android:textAlignment="center"
-			android:background="#93cfeb"
+			android:background="#6fbee3"
 			android:layout_marginTop="3dp"
 			android:layout_marginLeft="2dp"
 			android:text="nick"
