@@ -6,16 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import net.dirbaio.cryptocat.service.CryptocatServer;
-import net.dirbaio.cryptocat.service.CryptocatStateListener;
-import net.dirbaio.cryptocat.service.MultipartyConversation;
-import net.dirbaio.cryptocat.service.OtrConversation;
+import net.dirbaio.cryptocat.service.*;
 
 import java.util.ArrayList;
 
@@ -227,12 +225,22 @@ public class ConversationListFragment extends BaseListFragment implements Crypto
 				view = inflater.inflate(R.layout.item_conversation, null);
 			}
 
-			Object item = getItem(position);
-			TextView textView = (TextView) view.findViewById(R.id.text);
-            String str = item.toString();
-            textView.setText(str);
+			ConversationItem item = (ConversationItem) getItem(position);
 
-			return view;
+            TextView title = (TextView) view.findViewById(R.id.title);
+            title.setText(item.getTitle());
+
+            TextView subtitle = (TextView) view.findViewById(R.id.subtitle);
+            subtitle.setText(item.getSubtitle());
+
+            ImageView icon = (ImageView) view.findViewById(R.id.image);
+            int id = item.getImage();
+            if(id == 0)
+                icon.setBackground(null);
+            else
+                icon.setBackground(getResources().getDrawable(id));
+
+            return view;
 		}
 	}
 

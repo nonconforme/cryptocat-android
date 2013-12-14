@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 
-public abstract class Conversation
+public abstract class Conversation implements ConversationItem
 {
 	private final ArrayList<CryptocatMessageListener> msgListeners = new ArrayList<>();
 	public CryptocatServer server;
@@ -92,14 +92,22 @@ public abstract class Conversation
 		history.add(msg);
 
         if(msgListeners.size() == 0)
-        {
             unread++;
-            server.notifyStateChanged();
-        }
+
+        server.notifyStateChanged();
 
 		for (CryptocatMessageListener l : msgListeners)
 			l.messageReceived(msg);
 	}
+
+    @Override
+    public String getSubtitle()
+    {
+        if(history.size() == 0)
+            return "";
+
+        return history.get(history.size()-1).toString();
+    }
 
 }
 

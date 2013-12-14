@@ -2,6 +2,7 @@ package net.dirbaio.cryptocat.service;
 
 import android.util.Log;
 import net.dirbaio.cryptocat.ExceptionRunnable;
+import net.dirbaio.cryptocat.R;
 import net.java.otr4j.*;
 import net.java.otr4j.session.SessionID;
 import net.java.otr4j.session.SessionStatus;
@@ -119,7 +120,13 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
                 String txt = message.getBody();
                 String plaintext = otrEngine.transformReceiving(otrSessionID, txt);
                 if (plaintext != null)
-                    addMessage(new CryptocatMessage(CryptocatMessage.Type.Message, buddy.nickname, plaintext));
+                {
+                    //I'm sometimes receiving empty messages. Not sure if it's desktop cryptocat's
+                    //fault or mine. This fixes it.
+                    plaintext = plaintext.trim();
+                    if(!plaintext.isEmpty())
+                        addMessage(new CryptocatMessage(CryptocatMessage.Type.Message, buddy.nickname, plaintext));
+                }
             }
         });
 	}
@@ -132,11 +139,9 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
 
     private void sendRawMessage(final String msg)
     {
-        CryptocatService.getInstance().post(new ExceptionRunnable()
-        {
+        CryptocatService.getInstance().post(new ExceptionRunnable() {
             @Override
-            public void run() throws Exception
-            {
+            public void run() throws Exception {
                 chat.sendMessage(msg);
             }
         });
@@ -173,5 +178,15 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
         }
 
         return kg.genKeyPair();
+    }
+
+    @Override
+    public String getTitle() {
+        return buddy.nickname;
+    }
+
+    @Override
+    public int getImage() {
+        return R.drawable.ic_action_person;
     }
 }

@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CryptocatServer
+public class CryptocatServer implements ConversationItem
 {
 	public final String id;
 	public final CryptocatServerConfig config;
@@ -27,7 +27,27 @@ public class CryptocatServer
 
 	private State state;
 
-	public enum State
+    @Override
+    public String getTitle() {
+        return id;
+    }
+
+    @Override
+    public String getSubtitle() {
+        return state.toString();
+    }
+
+    @Override
+    public int getImage() {
+        return 0;
+    }
+
+    @Override
+    public int getUnreadCount() {
+        return 0;
+    }
+
+    public enum State
 	{
 		Disconnected,
 		Connected,

@@ -1,6 +1,7 @@
 package net.dirbaio.cryptocat.service;
 
 import net.dirbaio.cryptocat.ExceptionRunnable;
+import net.dirbaio.cryptocat.R;
 import net.java.otr4j.OtrException;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.SmackConfiguration;
@@ -193,7 +194,6 @@ public class MultipartyConversation extends Conversation
 
 		privateKey = null;
 		publicKey = null;
-		buddiesByName.clear();
 
         setState(State.Left);
 	}
@@ -459,8 +459,20 @@ public class MultipartyConversation extends Conversation
 			conversations.add(b.getConversation());
 	}
 
+    @Override
+    public String getTitle()
+    {
+        return roomName;
+    }
 
-	public class Buddy
+    @Override
+    public int getImage()
+    {
+        return R.drawable.ic_action_group;
+    }
+
+
+    public class Buddy
 	{
 		public final String nickname;
 		public byte[] publicKey;

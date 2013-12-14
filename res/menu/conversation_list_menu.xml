@@ -2,8 +2,9 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/newserver"
-            android:title="Connect to new server">
-
+		android:id="@+id/newserver"
+		android:title="Connect to server"
+		android:icon="@drawable/ic_action_new"
+		android:showAsAction="ifRoom">
     </item>
 </menu>

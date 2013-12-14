@@ -35,4 +35,24 @@ public class CryptocatMessage
         File,
         Error
 	}
+
+    @Override
+    public String toString() {
+        switch (type)
+        {
+            case Message:
+            case MessageMine:
+                return nickname+": "+text;
+            case Join:
+                return nickname+" joined";
+            case Leave:
+                return nickname+" left";
+            case File:
+                return nickname+" sent a file";
+            case Error:
+                return "Error: "+text;
+            default:
+                return "";
+        }
+    }
 }
