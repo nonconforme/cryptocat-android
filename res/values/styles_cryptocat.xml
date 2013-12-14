@@ -47,9 +47,14 @@
 		<item name="android:textColor">@color/sidebar_text</item>
 	</style>
 
-    <style name="ConversationBottom">
-        <item name="android:background">@color/bg_med</item>
-    </style>
+	<style name="ConversationBottom">
+		<item name="android:background">@color/bg_med</item>
+	</style>
+
+	<style name="Warning">
+		<item name="android:background">@color/warning_bg</item>
+		<item name="android:textColor">@color/warning_text</item>
+	</style>
 
     <style name="ActionBar.Solid.Cryptocat" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
         <item name="background">@drawable/ab_solid_cryptocat</item>

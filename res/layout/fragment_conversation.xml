@@ -18,12 +18,25 @@
 		android:dividerHeight="0dp"
 		android:divider="@null"/>
 
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="New Text"
+		android:id="@+id/warningText"
+		android:padding="6dp"
+		android:textStyle="bold"
+		style="@style/Warning"
+		android:textAlignment="center"
+		android:visibility="gone"
+		/>
+
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="fill_horizontal"
-		style="@style/ConversationBottom">
+		style="@style/ConversationBottom"
+		android:background="@drawable/bottom">
 
 		<EditText
 			android:layout_width="wrap_content"

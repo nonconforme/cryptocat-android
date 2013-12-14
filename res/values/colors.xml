@@ -9,4 +9,7 @@
 
     <color name="sidebar_bg">#FF151520</color>
     <color name="sidebar_text">#FFC7E5F5</color>
+
+	<color name="warning_bg">#ED915A</color>
+	<color name="warning_text">#000000</color>
 </resources>

@@ -38,4 +38,12 @@
 		android:layout_gravity="left|center_vertical"
 		android:layout_margin="10dp"
 		android:textStyle="bold"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="To ensure you're not the victim of a man-in-the-middle attack, you should always check people's fingerprints over a secure channel, such as by phone."
+		android:id="@+id/textView1"
+		android:layout_gravity="left|center_vertical"
+		android:layout_marginTop="25dp"/>
 </LinearLayout>

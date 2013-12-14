@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * A fragment representing a single Conversation screen.
  * This fragment is contained in a {@link MainActivity}
  */
-public class ConversationFragment extends BaseFragment implements CryptocatMessageListener, CryptocatBuddyListener
+public class ConversationFragment extends BaseFragment implements CryptocatMessageListener, CryptocatBuddyListener, CryptocatStateListener
 {
 	private String serverId;
 	private String conversationId;
@@ -98,6 +98,9 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 		if(conversation instanceof MultipartyConversation)
 			((MultipartyConversation)conversation).addBuddyListener(ConversationFragment.this);
 
+        getService().addStateListener(this);
+
+        stateChanged();
 		updateTitle();
 	}
 
@@ -105,7 +108,12 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 	public void onPause()
 	{
 		super.onPause();
+
 		conversation.removeMessageListener(ConversationFragment.this);
+        if(conversation instanceof MultipartyConversation)
+            ((MultipartyConversation)conversation).removeBuddyListener(ConversationFragment.this);
+
+        getService().removeStateListener(this);
 	}
 
 	@Override
@@ -203,5 +211,28 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
         intent.putExtra(BuddyInfoActivity.EXTRA_MULTIPARTY_FINGERPRINT, b.getMultipartyFingerprint());
         intent.putExtra(BuddyInfoActivity.EXTRA_OTR_FINGERPRINT, b.getOtrFingerprint());
         startActivity(intent);
+    }
+
+    @Override
+    public void stateChanged() {
+        String error = null;
+        if(conversation.server.getState() == CryptocatServer.State.Error)
+            error = "There was an error connecting to the server.";
+        else if(conversation.server.getState() != CryptocatServer.State.Connected)
+            error = "You're not connected to the server.";
+        else if(conversation.getState() == Conversation.State.Error)
+            error = "There was an error joining the conversation.";
+        else if(conversation.getState() != Conversation.State.Joined)
+            error = "You have left this conversation.";
+
+        TextView errorView = (TextView) rootView.findViewById(R.id.warningText);
+        if(error != null)
+        {
+            errorView.setVisibility(View.VISIBLE);
+            errorView.setText(error);
+        }
+        else
+            errorView.setVisibility(View.GONE);
+
     }
 }
