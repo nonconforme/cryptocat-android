@@ -9,6 +9,8 @@ import android.widget.EditText;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import net.dirbaio.cryptocat.service.Conversation;
 import net.dirbaio.cryptocat.service.CryptocatServer;
 import net.dirbaio.cryptocat.service.CryptocatStateListener;
 import net.dirbaio.cryptocat.service.MultipartyConversation;
@@ -49,6 +51,8 @@ public class ServerDetailFragment extends BaseFragment implements CryptocatState
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
 
 		serverId = getArguments().getString(MainActivity.ARG_SERVER_ID);
 	}
@@ -123,7 +127,26 @@ public class ServerDetailFragment extends BaseFragment implements CryptocatState
 	}
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.server_menu, menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.leave:
+                if(server.getState() == CryptocatServer.State.Connected)
+                {
+                    server.disconnect();
+                    callbacks.onItemSelected(null, null, null);
+                }
+                getService().removeServer(serverId);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

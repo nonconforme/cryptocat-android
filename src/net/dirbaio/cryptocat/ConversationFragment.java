@@ -239,6 +239,5 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
         }
         else
             errorView.setVisibility(View.GONE);
-
     }
 }
