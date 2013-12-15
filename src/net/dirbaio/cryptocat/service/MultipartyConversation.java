@@ -156,14 +156,45 @@ public class MultipartyConversation extends Conversation
 					DiscussionHistory history = new DiscussionHistory();
 					history.setMaxStanzas(0);
 
-					muc.join(nickname, "", history, SmackConfiguration.getPacketReplyTimeout());
+                    setState(State.Joined);
 
-					setState(State.Joined);
+                    final String oldNick = nickname;
+                    //Rejoin appending underscores "_" to the nickname in case
+                    //that nick is already used.
+                    int tries = 3;
+                    boolean ok = false;
+                    while(!ok)
+                    {
+                        tries--;
+                        try {
+                            muc.join(nickname, "", history, SmackConfiguration.getPacketReplyTimeout());
+                            ok = true;
+                        }
+                        catch(XMPPException e)
+                        {
+                            if(e.getXMPPError().getCode() == 409 && tries > 0)
+                                nickname += "_";
+                            else
+                                throw e;
+                        }
+                    }
+
+                    final int triesFinal = tries;
+                    CryptocatService.getInstance().uiPost(new ExceptionRunnable()
+                    {
+                        @Override
+                        public void run() throws Exception
+                        {
+                            if(triesFinal != 2)
+                                addMessage(new CryptocatMessage(CryptocatMessage.Type.Error, "", "Nickname \""+oldNick+"\" is already in use. Your nick is now \""+nickname+"\"."));
+
+                            addMessage(new CryptocatMessage(CryptocatMessage.Type.Join, nickname, ""));
+                        }
+                    });
 				}
 				catch (Exception e)
 				{
 					e.printStackTrace();
-
                     setState(State.Error);
 				}
 			}
@@ -181,8 +212,7 @@ public class MultipartyConversation extends Conversation
 			b.getConversation().leave();
 
 		final MultiUserChat mucFinal = muc;
-
-		if (server.getState() != CryptocatServer.State.Disconnected)
+		if (server.getState() == CryptocatServer.State.Connected)
 			CryptocatService.getInstance().post(new ExceptionRunnable()
 			{
 				@Override
@@ -197,6 +227,11 @@ public class MultipartyConversation extends Conversation
 
         setState(State.Left);
 	}
+
+    public void rejoin()
+    {
+
+    }
 
 	public void addBuddyListener(CryptocatBuddyListener l)
 	{

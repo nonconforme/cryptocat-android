@@ -18,7 +18,7 @@ public abstract class Conversation implements ConversationItem
 {
 	private final ArrayList<CryptocatMessageListener> msgListeners = new ArrayList<>();
 	public CryptocatServer server;
-	public final String nickname;
+	public String nickname;
 	public String id;
 	public final ArrayList<CryptocatMessage> history = new ArrayList<>();
     public MultipartyConversation.Buddy me;
@@ -91,7 +91,7 @@ public abstract class Conversation implements ConversationItem
 
 		history.add(msg);
 
-        if(msgListeners.size() == 0)
+        if(msgListeners.size() == 0 && msg.type != CryptocatMessage.Type.Join && msg.type != CryptocatMessage.Type.Leave)
             unread++;
 
         server.notifyStateChanged();

@@ -203,7 +203,21 @@ public class CryptocatServer implements ConversationItem
 
 					//Done!
 					state = State.Connected;
+
 					notifyStateChanged();
+
+                    CryptocatService.getInstance().uiPost(new ExceptionRunnable() {
+                        @Override
+                        public void run() throws Exception {
+                            //Rejoin all conversations in case we're doing a reconnection.
+                            for(MultipartyConversation conv : conversations.values())
+                                if(conv.getState() == Conversation.State.Joined)
+                                {
+                                    conv.leave();
+                                    conv.join();
+                                }
+                        }
+                    });
 				}
 				catch (XMPPException e)
 				{

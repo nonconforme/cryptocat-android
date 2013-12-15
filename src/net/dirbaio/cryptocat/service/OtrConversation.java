@@ -123,13 +123,23 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
                 {
                     //I'm sometimes receiving empty messages. Not sure if it's desktop cryptocat's
                     //fault or mine. This fixes it.
-                    plaintext = plaintext.trim();
-                    if(!plaintext.isEmpty())
+                    if(!isWhitespace(plaintext))
                         addMessage(new CryptocatMessage(CryptocatMessage.Type.Message, buddy.nickname, plaintext));
                 }
             }
         });
 	}
+
+    private static boolean isWhitespace(String s)
+    {
+        for(int i = 0; i < s.length(); i++)
+        {
+            char c = s.charAt(i);
+            if(c != ' ' && c != '\t' && c != '\n')
+                return false;
+        }
+        return true;
+    }
 
 	@Override
 	public String toString()

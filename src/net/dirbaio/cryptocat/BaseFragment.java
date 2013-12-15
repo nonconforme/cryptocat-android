@@ -62,8 +62,8 @@ public class BaseFragment extends SherlockFragment
 		 */
 		public void onItemSelected(String server, String conversation, String buddy);
 
-		public void showMenu();
-		public void showSecondaryMenu();
+		public void showLeftMenu();
+		public void showRightMenu();
 		public void showContent();
 	}
 
@@ -79,12 +79,12 @@ public class BaseFragment extends SherlockFragment
 		}
 
 		@Override
-		public void showMenu()
+		public void showLeftMenu()
 		{
 		}
 
 		@Override
-		public void showSecondaryMenu()
+		public void showRightMenu()
 		{
 		}
 

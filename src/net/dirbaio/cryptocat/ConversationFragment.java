@@ -1,6 +1,5 @@
 package net.dirbaio.cryptocat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
@@ -11,8 +10,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import net.dirbaio.cryptocat.service.*;
-
-import java.util.ArrayList;
 
 /**
  * A fragment representing a single Conversation screen.
@@ -192,13 +189,18 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 		switch (item.getItemId())
 		{
             case R.id.buddies:
-                callbacks.showSecondaryMenu();
+                callbacks.showRightMenu();
                 return true;
             case R.id.myinfo:
                 showInfo(conversation.me);
                 return true;
             case R.id.leave:
-                conversation.leave();
+                if(conversation.getState() == Conversation.State.Joined)
+                {
+                    conversation.leave();
+                    conversation.server.removeConversation(conversationId);
+                    callbacks.onItemSelected(serverId, null, null);
+                }
                 return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -216,12 +218,16 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
     @Override
     public void stateChanged() {
         String error = null;
+        if(conversation.server.getState() == CryptocatServer.State.Connecting)
+            error = "Connecting...";
         if(conversation.server.getState() == CryptocatServer.State.Error)
             error = "There was an error connecting to the server.";
         else if(conversation.server.getState() != CryptocatServer.State.Connected)
             error = "You're not connected to the server.";
         else if(conversation.getState() == Conversation.State.Error)
             error = "There was an error joining the conversation.";
+        else if(conversation.getState() == Conversation.State.Joining)
+            error = "Joining...";
         else if(conversation.getState() != Conversation.State.Joined)
             error = "You have left this conversation.";
 

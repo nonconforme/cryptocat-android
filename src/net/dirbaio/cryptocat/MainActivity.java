@@ -177,13 +177,13 @@ public class MainActivity extends SherlockFragmentActivity implements BaseFragme
 	}
 
 	@Override
-	public void showMenu()
+	public void showLeftMenu()
 	{
 		sm.showMenu();
 	}
 
 	@Override
-	public void showSecondaryMenu()
+	public void showRightMenu()
 	{
 		sm.showSecondaryMenu();
 	}
@@ -317,7 +317,7 @@ public class MainActivity extends SherlockFragmentActivity implements BaseFragme
         if(sm.isSecondaryMenuShowing())
             showContent();
         else if(!sm.isMenuShowing())
-            showMenu();
+            showLeftMenu();
         else
             super.onBackPressed();
     }
