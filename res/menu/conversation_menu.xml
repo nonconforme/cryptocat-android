@@ -2,7 +2,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item
-		android:id="@+id/myinfo"
+		android:id="@+id/showFingerprints"
 		android:title="My info"
 		android:icon="@drawable/ic_action_secure"
 		android:showAsAction="ifRoom" />
@@ -12,8 +12,12 @@
 		android:icon="@drawable/ic_action_group"
 		android:showAsAction="ifRoom" />
 	<item
+		android:id="@+id/showMyFingerprints"
+		android:title="Show my fingerprints"
+		android:showAsAction="never" />
+	<item
 		android:id="@+id/leave"
 		android:title="Leave conversation"
 		android:icon="@drawable/ic_action_remove"
-		android:showAsAction="ifRoom" />
+		android:showAsAction="never" />
 </menu>

@@ -22,7 +22,7 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 	private String buddyId;
 	private Conversation conversation;
 
-	private ConversationListView conversationView;
+	private MessageListView conversationView;
 	private View rootView;
 	private ImageButton sendButton;
 	private EditText text;
@@ -124,7 +124,7 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 	{
 		rootView = inflater.inflate(R.layout.fragment_conversation, container, false);
 
-		conversationView = (ConversationListView) rootView.findViewById(R.id.conversation);
+		conversationView = (MessageListView) rootView.findViewById(R.id.conversation);
 
 		sendButton = (ImageButton) rootView.findViewById(R.id.send);
 		text = (EditText) rootView.findViewById(R.id.text);
@@ -181,6 +181,11 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
     {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.conversation_menu, menu);
+
+        if(conversation instanceof MultipartyConversation)
+            menu.findItem(R.id.showFingerprints).setVisible(false);
+        else
+            menu.findItem(R.id.leave).setVisible(false);
     }
 
 	@Override
@@ -191,7 +196,10 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
             case R.id.buddies:
                 callbacks.showRightMenu();
                 return true;
-            case R.id.myinfo:
+            case R.id.showFingerprints:
+                showInfo(((OtrConversation)conversation).buddy);
+                return true;
+            case R.id.showMyFingerprints:
                 showInfo(conversation.me);
                 return true;
             case R.id.leave:

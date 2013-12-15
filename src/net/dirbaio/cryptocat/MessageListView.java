@@ -19,17 +19,17 @@ import net.dirbaio.cryptocat.service.CryptocatMessage;
 
 import java.util.ArrayList;
 
-public class ConversationListView extends ListView
+public class MessageListView extends ListView
 {
-    public ConversationListView(Context context) {
+    public MessageListView(Context context) {
         super(context);
     }
 
-    public ConversationListView(Context context, AttributeSet attrs) {
+    public MessageListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ConversationListView(Context context, AttributeSet attrs, int defStyle) {
+    public MessageListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

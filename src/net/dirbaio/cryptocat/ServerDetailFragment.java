@@ -44,7 +44,13 @@ public class ServerDetailFragment extends BaseFragment implements CryptocatState
 			rootView.findViewById(R.id.connecting).setVisibility(visible==R.id.connecting?View.VISIBLE:View.GONE);
 
 			oldVisible = visible;
-		}
+
+            if(disconnectMenuItem != null)
+            {
+                disconnectMenuItem.setVisible(visible != R.id.connecting);
+                getActivity().invalidateOptionsMenu();
+            }
+        }
 	}
 
 	@Override
@@ -126,11 +132,15 @@ public class ServerDetailFragment extends BaseFragment implements CryptocatState
         ab.setSubtitle("Join chat room");
 	}
 
+    MenuItem disconnectMenuItem;
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.server_menu, menu);
+        disconnectMenuItem = menu.findItem(R.id.leave);
+        disconnectMenuItem.setVisible(server.getState() != CryptocatServer.State.Connecting);
     }
 
     @Override
@@ -144,7 +154,9 @@ public class ServerDetailFragment extends BaseFragment implements CryptocatState
                     server.disconnect();
                     callbacks.onItemSelected(null, null, null);
                 }
-                getService().removeServer(serverId);
+
+                if(server.getState() == CryptocatServer.State.Disconnected)
+                    getService().removeServer(serverId);
                 return true;
         }
         return super.onOptionsItemSelected(item);
