@@ -6,6 +6,7 @@ package net.dirbaio.cryptocat.service;
 
 import android.os.Build;
 import net.dirbaio.cryptocat.ExceptionRunnable;
+import net.dirbaio.cryptocat.serverlist.ServerConfig;
 import org.jivesoftware.smack.*;
 
 import java.io.File;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 public class CryptocatServer implements ConversationItem
 {
 	public final String id;
-	public final CryptocatServerConfig config;
+	public final ServerConfig config;
 
 	public final HashMap<String, MultipartyConversation> conversations = new HashMap<>();
 	private final ArrayList<CryptocatStateListener> listeners = new ArrayList<>();
@@ -61,7 +62,7 @@ public class CryptocatServer implements ConversationItem
 		return state;
 	}
 
-	public CryptocatServer(CryptocatServerConfig config)
+	public CryptocatServer(ServerConfig config)
 	{
 		this.id = config.server;
 		this.config = config;
@@ -80,6 +81,7 @@ public class CryptocatServer implements ConversationItem
 		SmackConfiguration.setLocalSocks5ProxyEnabled(false);
 
 		ConnectionConfiguration conConfig;
+
 		if(config.useBosh)
 		{
 			//Setup connection
@@ -111,7 +113,7 @@ public class CryptocatServer implements ConversationItem
 			conConfig = boshConfig;
 		}
 		else
-			conConfig = new ConnectionConfiguration(config.server, config.port);
+        	conConfig = new ConnectionConfiguration(config.server, config.port);
 		
 		
 		//Android trust store shenaniagans
@@ -134,11 +136,14 @@ public class CryptocatServer implements ConversationItem
 			conConfig.setTruststorePath(path);
 		}
 
-        //Require TLS to connect to the server.
-        conConfig.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
+        if(config.useTls)
+        {
+            conConfig.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
+            conConfig.setSelfSignedCertificateEnabled(config.allowSelfSignedCerts);
+        }
+        else
+            conConfig.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
 
-        //Don't allow self signed certificates.
-        conConfig.setSelfSignedCertificateEnabled(false);
 
 		final ConnectionConfiguration conConfigFinal = conConfig;
 

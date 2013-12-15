@@ -12,27 +12,35 @@
 		android:id="@+id/imageView"
 		android:layout_gravity="center"
 		android:background="@drawable/ic_launcher"
-		android:layout_marginTop="39dp"/>
+		android:layout_marginTop="29dp"
+		android:layout_marginBottom="21dp"/>
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="@string/welcome"
 		android:id="@+id/textView"
-		android:layout_gravity="center"/>
-
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/connect_to_cryptocat"
-		android:id="@+id/connect_default"
 		android:layout_gravity="center"
-		android:layout_marginTop="38dp"/>
+		android:textSize="20dp"/>
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="...or [Choose custom server]"
-		android:id="@+id/textView1"
-		android:layout_gravity="center"/>
+		android:text="Choose a server"
+		android:id="@+id/textView2"
+		android:layout_gravity="center"
+		android:layout_marginTop="17dp"
+		/>
+
+	<ListView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/servers"
+		android:headerDividersEnabled="false"
+		android:focusableInTouchMode="false"
+		android:background="@color/bg_light"
+		android:drawSelectorOnTop="false"
+		android:longClickable="false"
+		android:layout_marginTop="8dp"/>
+
 </LinearLayout>

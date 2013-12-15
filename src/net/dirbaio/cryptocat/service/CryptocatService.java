@@ -10,6 +10,8 @@ import android.support.v4.app.NotificationCompat;
 import net.dirbaio.cryptocat.ExceptionRunnable;
 import net.dirbaio.cryptocat.MainActivity;
 import net.dirbaio.cryptocat.R;
+import net.dirbaio.cryptocat.serverlist.ServerConfig;
+import net.dirbaio.cryptocat.serverlist.ServerList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +34,8 @@ public class CryptocatService extends Service implements CryptocatStateListener
 
 	// Binder given to clients
 	private final IBinder binder = new CryptocatBinder();
+
+    public ServerList serverList = new ServerList();
 
 	public boolean hasServers()
 	{
@@ -84,6 +88,10 @@ public class CryptocatService extends Service implements CryptocatStateListener
 
 		// Create a handler to run stuff on the UI thread.
 		uiHandler = new Handler();
+
+        //Load server list
+        serverList = new ServerList();
+        serverList.load(this);
 	}
 
 	@Override
@@ -115,7 +123,7 @@ public class CryptocatService extends Service implements CryptocatStateListener
 
 	//CryptocatServer stuff.
 
-	public CryptocatServer createServer(CryptocatServerConfig config)
+	public CryptocatServer createServer(ServerConfig config)
 	{
 		CryptocatServer s = new CryptocatServer(config);
 		if(servers.containsKey(s.id))

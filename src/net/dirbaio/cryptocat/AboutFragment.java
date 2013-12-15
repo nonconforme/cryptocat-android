@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.actionbarsherlock.app.ActionBar;
 
 public class AboutFragment extends BaseFragment
 {
@@ -31,4 +32,10 @@ public class AboutFragment extends BaseFragment
         return rootView;
 	}
 
+    @Override
+    protected void onMustUpdateTitle(ActionBar ab)
+    {
+        ab.setTitle("Cryptocat");
+        ab.setSubtitle(null);
+    }
 }

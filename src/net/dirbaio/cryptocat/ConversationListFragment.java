@@ -73,7 +73,7 @@ public class ConversationListFragment extends BaseListFragment implements Crypto
 	{
 		super.onResume();
 		getService().addStateListener(this);
-		conversationArrayAdapter = new ConversationAdapter(getAltContext(), R.layout.item_conversation, conversations);
+		conversationArrayAdapter = new ConversationAdapter(getAltContext(), conversations);
 		setListAdapter(conversationArrayAdapter);
 
 		getService().addStateListener(this);
@@ -210,9 +210,9 @@ public class ConversationListFragment extends BaseListFragment implements Crypto
 
 		private Context context;
 
-		public ConversationAdapter(Context context, int textViewResourceId, ArrayList<Object> items)
+		public ConversationAdapter(Context context, ArrayList<Object> items)
 		{
-			super(context, textViewResourceId, items);
+			super(context, 0, items);
 			this.context = context;
 		}
 
