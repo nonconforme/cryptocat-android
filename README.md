@@ -10,19 +10,16 @@ What's done
 * Sending and receiving multiParty messages 
 * User list
 * OTR (1-to-1) chat
+* Fingerprint showing
 
-What's not done (yet)
+What's not done yet (sorted by priority)
 ---
 
-* Fingerprint showing
-* File transfer
-* Smilies
 * Custom servers and server list
-* Lots of navigation: 
-   * connect/disconnect servers
-   * Join/leave rooms
 * Notifications
+* Smilies
 * Tablet layout
+* File transfer
 
 Known bugs (they will get fixed!)
 ---

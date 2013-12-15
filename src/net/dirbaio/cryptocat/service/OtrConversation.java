@@ -15,7 +15,7 @@ import java.security.*;
 /**
  * An OTR conversation.
  */
-public class OtrConversation extends Conversation implements MessageListener, OtrEngineHost
+public class OtrConversation extends Conversation implements MessageListener, OtrEngineHost, OtrEngineListener
 {
 	public final MultipartyConversation parent;
     public final MultipartyConversation.Buddy buddy;
@@ -49,6 +49,7 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
         otrPolicy = new OtrPolicyImpl(OtrPolicy.ALLOW_V2 | OtrPolicy.ERROR_START_AKE | OtrPolicy.REQUIRE_ENCRYPTION);
         otrSessionID = new SessionID("", "", "");
         otrEngine = new OtrEngineImpl(this);
+        otrEngine.addOtrEngineListener(this);
 
 		CryptocatService.getInstance().post(new ExceptionRunnable()
 		{
@@ -164,12 +165,12 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
 
     @Override
     public void showWarning(SessionID sessionID, String s) {
-        Log.w("OTR", "OTR WARNING: " + s);
+        addMessage(new CryptocatMessage(CryptocatMessage.Type.Error, "", "OTR Warning: " + s));
     }
 
     @Override
     public void showError(SessionID sessionID, String s) {
-        Log.e("OTR", "OTR ERROR: " + s);
+        addMessage(new CryptocatMessage(CryptocatMessage.Type.Error, "", "OTR Error: " + s));
     }
 
     @Override
@@ -179,15 +180,7 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
 
     @Override
     public KeyPair getKeyPair(SessionID sessionID) {
-        KeyPairGenerator kg;
-        try {
-            kg = KeyPairGenerator.getInstance("DSA");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return kg.genKeyPair();
+        return me.otrKeyPair;
     }
 
     @Override
@@ -198,5 +191,11 @@ public class OtrConversation extends Conversation implements MessageListener, Ot
     @Override
     public int getImage() {
         return R.drawable.ic_action_person;
+    }
+
+    @Override
+    public void sessionStatusChanged(SessionID sessionID) {
+        if(otrEngine.getSessionStatus(otrSessionID) == SessionStatus.ENCRYPTED)
+            buddy.setOtrPublicKey(otrEngine.getRemotePublicKey(otrSessionID));
     }
 }

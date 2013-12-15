@@ -63,14 +63,21 @@ public class MultipartyConversation extends Conversation
 		buddiesByName.clear();
         buddies.clear();
 
-		//Generate keypair
+        //Create my buddy
+        me = new Buddy(nickname);
+
+		//Generate Multiparty keypair
 		privateKey = new byte[32];
 		publicKey = new byte[32];
 		Utils.random.nextBytes(privateKey);
 		Curve25519.keygen(publicKey, null, privateKey);
 
-        me = new Buddy(nickname);
         me.setPublicKey(publicKey);
+
+        //Generate OTR keypair
+        KeyPairGenerator kg = KeyPairGenerator.getInstance("DSA");
+        me.otrKeyPair = kg.genKeyPair();
+        me.setOtrPublicKey(me.otrKeyPair.getPublic());
 
 		CryptocatService.getInstance().post(new ExceptionRunnable()
 		{
@@ -506,18 +513,22 @@ public class MultipartyConversation extends Conversation
         return R.drawable.ic_action_group;
     }
 
-
+    //TODO: Make this a separate class (not an inner class), since it's used in many places outside MultipartyConversation
     public class Buddy
 	{
 		public final String nickname;
 		public byte[] publicKey;
 
-		private String otrFingerprint = "NOT YET IMPLEMENTED";
-        private String multipartyFingerprint;
+		private String otrFingerprint = "(Public key not yet received)";
+        private String multipartyFingerprint = "(Public key not yet received)";
 
         //Used only if buddy is not me
         public byte[] messageSecret, hmacSecret;
         public OtrConversation conv;
+        public PublicKey otrPublicKey;
+
+        //Used only if the buddy is me
+        public KeyPair otrKeyPair;
 
         private Buddy(String nickname) {
 			this.nickname = nickname;
@@ -528,10 +539,28 @@ public class MultipartyConversation extends Conversation
             return publicKey != null;
         }
 
-        public void setPublicKey(byte[] publicKey) throws NoSuchProviderException, NoSuchAlgorithmException, XMPPException {
+        public void setPublicKey(byte[] publicKey)
+        {
             this.publicKey = publicKey;
-            multipartyFingerprint = makeFingerprint(publicKey);
-		}
+            try {
+                multipartyFingerprint = makeFingerprint("SHA-512", publicKey);
+            } catch (Exception e) {
+                e.printStackTrace();
+                multipartyFingerprint = "(Error calculating fingerprint)";
+            }
+        }
+
+        public void setOtrPublicKey(PublicKey publicKey)
+        {
+            otrPublicKey = publicKey;
+            try {
+                //FIXME This is not generating the same values as the browser client. No idea why :(
+                otrFingerprint = makeFingerprint("SHA-1", publicKey.getEncoded());
+            } catch (Exception e) {
+                e.printStackTrace();
+                otrFingerprint = "(Error calculating fingerprint)";
+            }
+        }
 
         public void genSharedSecrets() throws NoSuchProviderException, NoSuchAlgorithmException {
             //Gen shared secret
@@ -549,8 +578,8 @@ public class MultipartyConversation extends Conversation
             System.arraycopy(digest, 32, hmacSecret, 0, 32);
         }
 
-        private String makeFingerprint(byte[] publicKey) throws NoSuchProviderException, NoSuchAlgorithmException {
-            MessageDigest mda = MessageDigest.getInstance("SHA-512", "BC");
+        private String makeFingerprint(String algo, byte[] publicKey) throws NoSuchProviderException, NoSuchAlgorithmException {
+            MessageDigest mda = MessageDigest.getInstance(algo, "BC");
             byte[] digest = mda.digest(publicKey);
 
             byte[] fingerprint = new byte[20];

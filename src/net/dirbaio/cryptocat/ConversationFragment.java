@@ -197,10 +197,10 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
                 callbacks.showRightMenu();
                 return true;
             case R.id.showFingerprints:
-                showInfo(((OtrConversation)conversation).buddy);
+                BuddyInfoActivity.showInfo(getActivity(), ((OtrConversation)conversation).buddy);
                 return true;
             case R.id.showMyFingerprints:
-                showInfo(conversation.me);
+                BuddyInfoActivity.showInfo(getActivity(), conversation.me);
                 return true;
             case R.id.leave:
                 if(conversation.getState() == Conversation.State.Joined)
@@ -213,15 +213,6 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-    private void showInfo(MultipartyConversation.Buddy b)
-    {
-        Intent intent = new Intent(this.getActivity(), BuddyInfoActivity.class);
-        intent.putExtra(BuddyInfoActivity.EXTRA_TITLE, b.nickname);
-        intent.putExtra(BuddyInfoActivity.EXTRA_MULTIPARTY_FINGERPRINT, b.getMultipartyFingerprint());
-        intent.putExtra(BuddyInfoActivity.EXTRA_OTR_FINGERPRINT, b.getOtrFingerprint());
-        startActivity(intent);
-    }
 
     @Override
     public void stateChanged() {
