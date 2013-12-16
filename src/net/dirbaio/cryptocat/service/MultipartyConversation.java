@@ -1,5 +1,6 @@
 package net.dirbaio.cryptocat.service;
 
+import android.util.Base64;
 import net.dirbaio.cryptocat.ExceptionRunnable;
 import net.dirbaio.cryptocat.R;
 import net.java.otr4j.OtrException;
@@ -187,13 +188,11 @@ public class MultipartyConversation extends Conversation
                     }
 
                     final int triesFinal = tries;
-                    CryptocatService.getInstance().uiPost(new ExceptionRunnable()
-                    {
+                    CryptocatService.getInstance().uiPost(new ExceptionRunnable() {
                         @Override
-                        public void run() throws Exception
-                        {
-                            if(triesFinal != 2)
-                                addMessage(new CryptocatMessage(CryptocatMessage.Type.Error, "", "Nickname \""+oldNick+"\" is already in use. Your nick is now \""+nickname+"\"."));
+                        public void run() throws Exception {
+                            if (triesFinal != 2)
+                                addMessage(new CryptocatMessage(CryptocatMessage.Type.Error, "", "Nickname \"" + oldNick + "\" is already in use. Your nick is now \"" + nickname + "\"."));
 
                             addMessage(new CryptocatMessage(CryptocatMessage.Type.Join, nickname, ""));
                         }
@@ -266,14 +265,12 @@ public class MultipartyConversation extends Conversation
 	private void sendJsonMessage(JsonMessage m)
 	{
 		final String send = GsonHelper.customGson.toJson(m);
-		CryptocatService.getInstance().post(new ExceptionRunnable()
-		{
-			@Override
-			public void run() throws Exception
-			{
-				muc.sendMessage(send);
-			}
-		});
+		CryptocatService.getInstance().post(new ExceptionRunnable() {
+            @Override
+            public void run() throws Exception {
+                muc.sendMessage(send);
+            }
+        });
 	}
 
 	private void sendPublicKey(String to) throws XMPPException
@@ -350,7 +347,9 @@ public class MultipartyConversation extends Conversation
 				byte[] hmac = mac.doFinal();
 				byte[] messageHmac = myMessage.hmac;
 
-				if (!Arrays.equals(hmac, messageHmac))
+                System.err.println("hmac = "+ Utils.toBase64(hmac));
+                System.err.println("messageHmac = "+ Utils.toBase64(messageHmac));
+                if (!Arrays.equals(hmac, messageHmac))
 					throw new RuntimeException("Bad HMAC");
 
 				//Decrypt

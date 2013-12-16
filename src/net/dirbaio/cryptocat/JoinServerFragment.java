@@ -47,6 +47,13 @@ public class JoinServerFragment extends BaseFragment
                 }
             }
         });
+        serversListView.setLongClickable(true);
+        serversListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return false;
+            }
+        });
 
 		return rootView;
 	}
@@ -80,8 +87,7 @@ public class JoinServerFragment extends BaseFragment
             subtitle.setText(item.getDescription());
 
             ImageView icon = (ImageView) view.findViewById(R.id.image);
-            icon.setBackground(null);
-            //icon.setBackground(getResources().getDrawable(id));
+            icon.setImageResource(android.R.color.transparent);
 
             return view;
         }

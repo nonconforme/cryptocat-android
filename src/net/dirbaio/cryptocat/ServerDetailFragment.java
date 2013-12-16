@@ -48,7 +48,7 @@ public class ServerDetailFragment extends BaseFragment implements CryptocatState
             if(disconnectMenuItem != null)
             {
                 disconnectMenuItem.setVisible(visible != R.id.connecting);
-                getActivity().invalidateOptionsMenu();
+                getActivity().supportInvalidateOptionsMenu();
             }
         }
 	}
@@ -140,7 +140,8 @@ public class ServerDetailFragment extends BaseFragment implements CryptocatState
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.server_menu, menu);
         disconnectMenuItem = menu.findItem(R.id.leave);
-        disconnectMenuItem.setVisible(server.getState() != CryptocatServer.State.Connecting);
+        if(server != null)
+            disconnectMenuItem.setVisible(server.getState() != CryptocatServer.State.Connecting);
     }
 
     @Override

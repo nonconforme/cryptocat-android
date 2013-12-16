@@ -236,9 +236,9 @@ public class ConversationListFragment extends BaseListFragment implements Crypto
             ImageView icon = (ImageView) view.findViewById(R.id.image);
             int id = item.getImage();
             if(id == 0)
-                icon.setBackground(null);
+                icon.setImageResource(android.R.color.transparent);
             else
-                icon.setBackground(getResources().getDrawable(id));
+                icon.setImageResource(id);
 
             return view;
 		}

@@ -150,6 +150,9 @@ public class ConversationFragment extends BaseFragment implements CryptocatMessa
 			}
 		});
 
+        text.setFocusableInTouchMode(true);
+        text.requestFocus();
+
 		return rootView;
 	}
 
