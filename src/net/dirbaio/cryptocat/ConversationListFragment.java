@@ -16,6 +16,7 @@ import com.actionbarsherlock.view.MenuItem;
 import net.dirbaio.cryptocat.service.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A list fragment representing a list of Conversations. This fragment
@@ -39,7 +40,7 @@ public class ConversationListFragment extends BaseListFragment implements Crypto
 	 * The current activated item position. Only used on tablets.
 	 */
 	private int activatedPosition = ListView.INVALID_POSITION;
-	private final ArrayList<Object> conversations = new ArrayList<Object>();
+	private final List<Object> conversations = new ArrayList<Object>();
 	private ArrayAdapter<Object> conversationArrayAdapter;
 
 	private MultipartyConversation conversation;
@@ -210,7 +211,7 @@ public class ConversationListFragment extends BaseListFragment implements Crypto
 
 		private Context context;
 
-		public ConversationAdapter(Context context, ArrayList<Object> items)
+		public ConversationAdapter(Context context, List<Object> items)
 		{
 			super(context, 0, items);
 			this.context = context;

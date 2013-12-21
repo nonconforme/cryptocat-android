@@ -14,14 +14,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CryptocatServer implements ConversationItem
 {
 	public final String id;
 	public final ServerConfig config;
 
-	public final HashMap<String, MultipartyConversation> conversations = new HashMap<>();
-	private final ArrayList<CryptocatStateListener> listeners = new ArrayList<>();
+	public final Map<String, MultipartyConversation> conversations = new HashMap<>();
+	private final List<CryptocatStateListener> listeners = new ArrayList<>();
 
 	private String username, password;
 	Connection con;

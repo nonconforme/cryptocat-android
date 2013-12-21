@@ -26,7 +26,9 @@ public class AboutFragment extends BaseFragment
         {
             version = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
         }
-        catch (PackageManager.NameNotFoundException e) {}
+        catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
         versionText.setText(getString(R.string.version)+" "+version);
         return rootView;

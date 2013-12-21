@@ -15,6 +15,8 @@ import net.dirbaio.cryptocat.serverlist.ServerList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CryptocatService extends Service implements CryptocatStateListener
 {
@@ -29,8 +31,8 @@ public class CryptocatService extends Service implements CryptocatStateListener
 	private Looper serviceLooper;
 	private Handler serviceHandler;
 	private Handler uiHandler;
-	private final HashMap<String, CryptocatServer> servers = new HashMap<>();
-	private final ArrayList<CryptocatStateListener> listeners = new ArrayList<>();
+	private final Map<String, CryptocatServer> servers = new HashMap<>();
+	private final List<CryptocatStateListener> listeners = new ArrayList<>();
 
 	// Binder given to clients
 	private final IBinder binder = new CryptocatBinder();
@@ -151,7 +153,7 @@ public class CryptocatService extends Service implements CryptocatStateListener
 		stateChanged();
 	}
 
-	public void getConversationList(ArrayList<Object> list)
+	public void getConversationList(List<Object> list)
 	{
 		list.clear();
 		for (CryptocatServer s : servers.values())

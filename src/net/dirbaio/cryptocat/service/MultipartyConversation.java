@@ -39,9 +39,9 @@ public class MultipartyConversation extends Conversation
 	public byte[] publicKey;
 
 	public final Map<String, Buddy> buddiesByName = new HashMap<>();
-	public final ArrayList<Buddy> buddies = new ArrayList<>();
+	public final List<Buddy> buddies = new ArrayList<>();
 
-	private final ArrayList<CryptocatBuddyListener> buddyListeners = new ArrayList<>();
+	private final List<CryptocatBuddyListener> buddyListeners = new ArrayList<>();
 
 	public MultipartyConversation(CryptocatServer server, String roomName, String nickname) throws XMPPException
 	{
@@ -490,7 +490,7 @@ public class MultipartyConversation extends Conversation
 		addMessage(msg);
 	}
 
-	public void getPrivateConversationList(ArrayList<Object> conversations)
+	public void getPrivateConversationList(List<Object> conversations)
 	{
 		conversations.clear();
 

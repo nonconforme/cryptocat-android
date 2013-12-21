@@ -6,12 +6,13 @@ import net.dirbaio.cryptocat.service.GsonHelper;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ServerList
 {
     public static final String SERVER_LIST_FILE = "servers.json";
 
-    public ArrayList<ServerConfig> servers;
+    public List<ServerConfig> servers;
 
     public void save(Context context) throws IOException
     {
