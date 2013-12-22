@@ -23,7 +23,7 @@ public abstract class Conversation implements ConversationItem
 	public final ArrayList<CryptocatMessage> history = new ArrayList<>();
     public MultipartyConversation.Buddy me;
 
-	private State state;
+	private volatile State state;
     private int unread;
 
 	public enum State

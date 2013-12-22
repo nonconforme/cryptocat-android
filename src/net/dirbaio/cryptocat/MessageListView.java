@@ -18,6 +18,7 @@ import android.widget.TextView;
 import net.dirbaio.cryptocat.service.CryptocatMessage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MessageListView extends ListView
 {
@@ -36,7 +37,7 @@ public class MessageListView extends ListView
 
     ConversationAdapter conversationArrayAdapter;
 
-    public void setHistory(ArrayList<CryptocatMessage> history)
+    public void setHistory(List<CryptocatMessage> history)
     {
         conversationArrayAdapter = new ConversationAdapter(getContext(), history);
         setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
@@ -173,7 +174,7 @@ public class MessageListView extends ListView
 
         private Context context;
 
-        public ConversationAdapter(Context context, ArrayList<CryptocatMessage> items)
+        public ConversationAdapter(Context context, List<CryptocatMessage> items)
         {
             super(context, 0, items);
             this.context = context;

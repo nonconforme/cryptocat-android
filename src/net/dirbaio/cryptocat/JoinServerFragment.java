@@ -12,6 +12,7 @@ import net.dirbaio.cryptocat.service.CryptocatServer;
 import net.dirbaio.cryptocat.service.CryptocatService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JoinServerFragment extends BaseFragment
 {
@@ -63,7 +64,7 @@ public class JoinServerFragment extends BaseFragment
 
         private Context context;
 
-        public ServersAdapter(Context context, ArrayList<ServerConfig> items)
+        public ServersAdapter(Context context, List<ServerConfig> items)
         {
             super(context, 0, items);
             this.context = context;
