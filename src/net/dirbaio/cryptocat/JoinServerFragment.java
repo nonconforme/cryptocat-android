@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import net.dirbaio.cryptocat.serverlist.ServerConfig;
 import net.dirbaio.cryptocat.service.CryptocatServer;
 import net.dirbaio.cryptocat.service.CryptocatService;
@@ -20,7 +23,13 @@ public class JoinServerFragment extends BaseFragment
 	private View rootView;
     private ListView serversListView;
 
-	@Override
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
 	public void onStart()
 	{
 		super.onStart();
@@ -98,5 +107,25 @@ public class JoinServerFragment extends BaseFragment
     {
         ab.setTitle("Cryptocat");
         ab.setSubtitle(null);
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.server_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.newserver:
+				//TODO
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

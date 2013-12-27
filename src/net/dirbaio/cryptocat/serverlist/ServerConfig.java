@@ -2,6 +2,8 @@ package net.dirbaio.cryptocat.serverlist;
 
 public class ServerConfig
 {
+	public long id; //The DB ID
+
     public String name = "Cryptocat server";
 
 	public String server = "crypto.cat";
@@ -10,10 +12,6 @@ public class ServerConfig
 
     public boolean useTls = true;
     public boolean allowSelfSignedCerts = false;
-
-    //NOT USED. BOSH IS BUGGY
-    public boolean useBosh = false;
-    public String boshRelay = "https://crypto.cat/http-bind";
 
     public String getDescription()
     {

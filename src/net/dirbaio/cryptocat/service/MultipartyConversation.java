@@ -67,19 +67,6 @@ public class MultipartyConversation extends Conversation
         //Create my buddy
         me = new Buddy(nickname);
 
-		//Generate Multiparty keypair
-		privateKey = new byte[32];
-		publicKey = new byte[32];
-		Utils.random.nextBytes(privateKey);
-		Curve25519.keygen(publicKey, null, privateKey);
-
-        me.setPublicKey(publicKey);
-
-        //Generate OTR keypair
-        KeyPairGenerator kg = KeyPairGenerator.getInstance("DSA");
-        me.otrKeyPair = kg.genKeyPair();
-        me.setOtrPublicKey(me.otrKeyPair.getPublic());
-
 		CryptocatService.getInstance().post(new ExceptionRunnable()
 		{
 			@Override
@@ -87,7 +74,21 @@ public class MultipartyConversation extends Conversation
 			{
 				try
 				{
-					//Setup MUC chat
+                    //We do this on the CryptocatService thread because key generation is slow, especially OTR.
+                    //Generate Multiparty keypair
+                    privateKey = new byte[32];
+                    publicKey = new byte[32];
+                    Utils.random.nextBytes(privateKey);
+                    Curve25519.keygen(publicKey, null, privateKey);
+
+                    me.setPublicKey(publicKey);
+
+                    //Generate OTR keypair
+                    KeyPairGenerator kg = KeyPairGenerator.getInstance("DSA");
+                    me.otrKeyPair = kg.genKeyPair();
+                    me.setOtrPublicKey(me.otrKeyPair.getPublic());
+
+                    //Setup MUC chat
 					muc = new MultiUserChat(server.con, roomName + "@" + server.config.conferenceServer);
 
 					muc.addMessageListener(new PacketListener()

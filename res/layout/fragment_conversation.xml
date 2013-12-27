@@ -25,10 +25,8 @@
 		android:id="@+id/warningText"
 		android:padding="6dp"
 		android:textStyle="bold"
-		style="@style/Warning"
 		android:textAlignment="center"
-		android:visibility="gone"
-		/>
+		android:visibility="gone"/>
 
 	<LinearLayout
 		android:orientation="horizontal"
