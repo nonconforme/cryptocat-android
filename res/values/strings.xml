@@ -19,6 +19,7 @@
     <string name="about_cryptocat_2">Cryptocat is awesome and lets you chat with privacy. Made by the awesome Cryptocat
         team. Android app made by me :3
     </string>
+    <string name="notification_text"></string>
     <string name="cryptocat">Cryptocat</string>
     <string name="version">Version</string>
 
