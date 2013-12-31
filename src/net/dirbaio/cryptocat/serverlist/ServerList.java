@@ -42,21 +42,6 @@ public class ServerList
             //populate the server list with the official server and that's it.
             servers = new ArrayList<>();
             servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
-            servers.add(new ServerConfig());
         }
     }
 }
