@@ -12,6 +12,8 @@ public class ServerConfig
 
     public boolean useTls = true;
     public boolean allowSelfSignedCerts = false;
+    public boolean useBosh = false;
+    public String boshRelay = null;
 
     public String getDescription()
     {

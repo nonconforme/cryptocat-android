@@ -110,6 +110,8 @@ public class CryptocatService extends Service implements CryptocatStateListener
 
 		Notification notification = new NotificationCompat.Builder(this.getApplicationContext())
 				.setContentTitle(getText(R.string.ticker_text))
+                .setContentText(getText(R.string.notification_text))
+                .setSmallIcon(R.drawable.ic_launcher)
 				.setContentIntent(pendingIntent)
 				.getNotification();
 
