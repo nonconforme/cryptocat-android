@@ -29,6 +29,7 @@ public class CryptocatServer implements ConversationItem
 	Connection con;
 
 	private State state;
+    private final ArrayList<ExceptionRunnable> runWhenConnectedQueue = new ArrayList<>();
 
     @Override
     public String getTitle() {
@@ -223,8 +224,12 @@ public class CryptocatServer implements ConversationItem
                                     conv.leave();
                                     conv.join();
                                 }
+                            for(ExceptionRunnable r : runWhenConnectedQueue)
+                                r.run();
+                            runWhenConnectedQueue.clear();
                         }
                     });
+
 				}
 				catch (XMPPException e)
 				{
@@ -236,6 +241,18 @@ public class CryptocatServer implements ConversationItem
 			}
 		});
 	}
+
+    public void runWhenConnected(ExceptionRunnable r)
+    {
+        if(state != State.Connected)
+            runWhenConnectedQueue.add(r);
+        else
+            try {
+                r.run();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    }
 
 	public void disconnect()
 	{

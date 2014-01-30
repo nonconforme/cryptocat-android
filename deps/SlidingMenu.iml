@@ -20,9 +20,9 @@
       <sourceFolder url="file://$MODULE_DIR$/SlidingMenu/library/src" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/repo/library/gen">
-      <sourceFolder url="file://$MODULE_DIR$/repo/library/gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/repo/library/gen" isTestSource="false" generated="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="android-support-v42" level="project" />
   </component>

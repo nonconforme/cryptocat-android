@@ -9,7 +9,7 @@
     <string name="join">Join</string>
     <string name="room_name">Room name</string>
     <string name="nickname">Nickname</string>
-    <string name="join_room">Join room</string>
+    <string name="join_room">Enter a name for your conversation.\nShare it with people you would like to talk to.</string>
     <string name="connecting_to_server">Connecting to server...</string>
     <string name="not_connected_to_server">You\'re not connected to this server.</string>
     <string name="reconnect">Reconnect</string>
@@ -21,6 +21,6 @@
     </string>
     <string name="notification_text"></string>
     <string name="cryptocat">Cryptocat</string>
-    <string name="version">Version</string>
+    <string name="version">Version</string><string name="connect">Connect</string>
 
 </resources>

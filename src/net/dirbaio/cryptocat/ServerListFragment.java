@@ -1,12 +1,10 @@
 package net.dirbaio.cryptocat;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -14,33 +12,16 @@ import net.dirbaio.cryptocat.serverlist.ServerConfig;
 import net.dirbaio.cryptocat.service.CryptocatServer;
 import net.dirbaio.cryptocat.service.CryptocatService;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class JoinServerFragment extends BaseFragment
+public class ServerListFragment extends BaseListFragment
 {
-
-	private View rootView;
-    private ListView serversListView;
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+    public void onResume() {
+        super.onResume();
+        setListAdapter(new ServersAdapter(getActivity(), CryptocatService.getInstance().serverList.servers));
 
-    @Override
-	public void onStart()
-	{
-		super.onStart();
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-        rootView = inflater.inflate(R.layout.fragment_join_server, container, false);
-        serversListView = (ListView) rootView.findViewById(R.id.servers);
-        serversListView.setAdapter(new ServersAdapter(getActivity(), CryptocatService.getInstance().serverList.servers));
+                /*
         serversListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -64,9 +45,27 @@ public class JoinServerFragment extends BaseFragment
                 return false;
             }
         });
+*/
+    }
 
-		return rootView;
-	}
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.server_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.newserver:
+                //TODO
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private class ServersAdapter extends ArrayAdapter<ServerConfig>
     {
@@ -101,31 +100,5 @@ public class JoinServerFragment extends BaseFragment
 
             return view;
         }
-    }
-    @Override
-    protected void onMustUpdateTitle(ActionBar ab)
-    {
-        ab.setTitle("Cryptocat");
-        ab.setSubtitle(null);
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
-    {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.server_list, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.newserver:
-				//TODO
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

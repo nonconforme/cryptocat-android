@@ -12,8 +12,7 @@ import com.actionbarsherlock.app.ActionBar;
 public class AboutFragment extends BaseFragment
 {
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-	                         Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		inflater = getAltInflater(inflater);
 		View rootView = inflater.inflate(R.layout.fragment_about, container, false);

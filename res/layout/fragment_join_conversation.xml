@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+	android:layout_height="match_parent" tools:context=".MainActivity">
+
+    <LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/connecting" android:visibility="gone">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/connecting_to_server"
+			android:id="@+id/textView3"
+			android:layout_gravity="center"
+			android:layout_marginTop="36dp"/>
+
+		<ProgressBar
+			android:layout_width="96dp"
+			android:layout_height="86dp"
+			android:id="@+id/progressBar"
+			android:layout_gravity="center"
+			android:layout_marginTop="27dp"/>
+    </LinearLayout>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/join">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1">
+            <ImageView
+                    android:layout_width="136dp"
+                    android:layout_height="136dp"
+                    android:id="@+id/imageView" android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginTop="32dp"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/join_room"
+                    android:id="@+id/textView2"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginBottom="12dp"
+                    />
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:background="#ffffff">
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:id="@+id/name"
+                        android:inputType="textAutoCorrect" android:hint="Conversation name" android:layout_weight="0.05"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:id="@+id/nickname"
+                        android:inputType="textAutoCorrect" android:hint="Your nickname"/>
+            </LinearLayout>
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Connect"
+                    android:id="@+id/join_button"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    />
+            </LinearLayout>
+
+        </ScrollView>
+
+</FrameLayout>

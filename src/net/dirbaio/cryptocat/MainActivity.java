@@ -220,11 +220,8 @@ public class MainActivity extends SherlockFragmentActivity implements BaseFragme
 		}
 		else
 		{
-			rightFragment = new AboutFragment();
-			if (server != null)
-				centerFragment = new ServerDetailFragment();
-			else
-				centerFragment = new JoinServerFragment();
+			rightFragment = new ServerListFragment();
+            centerFragment = new JoinConversationFragment();
 		}
 
 		currCenterFragment = centerFragment;
