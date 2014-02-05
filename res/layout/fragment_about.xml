@@ -23,7 +23,7 @@
 
 	<TextView
 		android:layout_width="fill_parent"
-		android:layout_height="167dp"
+		android:layout_height="0dp"
 		android:text="@string/about_cryptocat_2"
 		android:id="@+id/textView1"
 		android:layout_weight="0.42"
