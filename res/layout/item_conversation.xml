@@ -28,7 +28,7 @@
 			android:layout_height="wrap_content"
 			android:id="@+id/title"
 			android:layout_gravity="left|center_vertical"
-			android:text="loltestroom"
+			android:text="@string/loltestroom"
 			android:textStyle="bold"
 			android:layout_marginBottom="2dp"
 			android:maxLines="1"/>

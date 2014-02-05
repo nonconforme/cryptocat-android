@@ -21,7 +21,7 @@
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="New Text"
+		android:text="@string/new_text"
 		android:id="@+id/warningText"
 		android:padding="6dp"
 		android:textStyle="bold"

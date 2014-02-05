@@ -35,7 +35,7 @@
 			android:background="#6fbee3"
 			android:layout_marginTop="3dp"
 			android:layout_marginLeft="2dp"
-			android:text="nick"
+			android:text="@string/nick"
 			android:singleLine="false"
 			android:paddingLeft="8dp"
 			android:paddingTop="2dp"
@@ -50,6 +50,6 @@
 			android:id="@+id/text"
 			android:layout_gravity="center|left"
 			android:layout_marginLeft="10dp"
-			android:text="text"/>
+			android:text="@string/text"/>
 	</LinearLayout>
 </FrameLayout>

@@ -28,6 +28,6 @@
 			android:layout_height="wrap_content"
 			android:id="@+id/text"
 			android:layout_gravity="center|left"
-			android:text="text"/>
+			android:text="@string/text"/>
 	</LinearLayout>
 </FrameLayout>
