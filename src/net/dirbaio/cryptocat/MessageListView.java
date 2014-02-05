@@ -17,7 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import net.dirbaio.cryptocat.service.CryptocatMessage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MessageListView extends ListView

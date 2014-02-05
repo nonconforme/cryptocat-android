@@ -1,6 +1,5 @@
 package net.dirbaio.cryptocat.service;
 
-import android.util.Base64;
 import net.dirbaio.cryptocat.ExceptionRunnable;
 import net.dirbaio.cryptocat.R;
 import net.java.otr4j.OtrException;
