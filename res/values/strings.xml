@@ -21,6 +21,20 @@
     </string>
     <string name="notification_text"></string>
     <string name="cryptocat">Cryptocat</string>
-    <string name="version">Version</string><string name="connect">Connect</string>
-
+    <string name="version">Version</string>
+	<string name="connect">Connect</string>
+    <string name="connect_to_server">Connect to server</string>
+    <string name="my_info">My info</string>
+    <string name="people">People</string>
+    <string name="show_my_fingerprints">Show my fingerprints</string>
+    <string name="add_server">Add server</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="group_conversation_fingerprint">Group conversation fingerprint:</string>
+    <string name="new_text">New Text</string>
+    <string name="leave_conversation">Leave conversation</string>
+    <string name="private_conversation_fingerprint">Private conversation fingerprint:</string>
+    <string name="choice_server">Choose a server</string>
+    <string name="loltestroom">loltestroom</string>
+    <string name="text">text</string>
+    <string name="nick">nick</string>
 </resources>

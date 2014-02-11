@@ -1,6 +1,5 @@
 package net.dirbaio.cryptocat.service;
 
-import android.util.Log;
 import net.dirbaio.cryptocat.ExceptionRunnable;
 import net.dirbaio.cryptocat.R;
 import net.java.otr4j.*;
@@ -10,7 +9,8 @@ import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
-import java.security.*;
+
+import java.security.KeyPair;
 
 /**
  * An OTR conversation.

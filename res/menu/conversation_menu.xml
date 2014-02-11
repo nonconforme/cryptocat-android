@@ -3,21 +3,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item
 		android:id="@+id/showFingerprints"
-		android:title="My info"
+		android:title="@string/my_info"
 		android:icon="@drawable/ic_action_secure"
 		android:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/buddies"
-		android:title="People"
+		android:title="@string/people"
 		android:icon="@drawable/ic_action_group"
 		android:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/showMyFingerprints"
-		android:title="Show my fingerprints"
+		android:title="@string/show_my_fingerprints"
 		android:showAsAction="never" />
 	<item
 		android:id="@+id/leave"
-		android:title="Leave conversation"
+		android:title="@string/leave_conversation"
 		android:icon="@drawable/ic_action_remove"
 		android:showAsAction="never" />
 </menu>
