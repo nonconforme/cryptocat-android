@@ -10,7 +10,6 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import net.dirbaio.cryptocat.service.Conversation;
 import net.dirbaio.cryptocat.service.CryptocatServer;
 import net.dirbaio.cryptocat.service.CryptocatStateListener;
 import net.dirbaio.cryptocat.service.MultipartyConversation;

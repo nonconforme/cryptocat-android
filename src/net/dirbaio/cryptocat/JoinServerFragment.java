@@ -14,7 +14,6 @@ import net.dirbaio.cryptocat.serverlist.ServerConfig;
 import net.dirbaio.cryptocat.service.CryptocatServer;
 import net.dirbaio.cryptocat.service.CryptocatService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class JoinServerFragment extends BaseFragment

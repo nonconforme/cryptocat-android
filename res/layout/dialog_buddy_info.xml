@@ -9,14 +9,14 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Group conversation fingerprint:"
+		android:text="@string/group_conversation_fingerprint"
 		android:id="@+id/textView"
 		android:layout_gravity="left|center_vertical"/>
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="New Text"
+		android:text="@string/new_text"
 		android:id="@+id/multipartyFingerprint"
 		android:layout_gravity="left|center_vertical"
 		android:layout_margin="10dp"
@@ -25,7 +25,7 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Private conversation fingerprint:"
+		android:text="@string/private_conversation_fingerprint"
 		android:id="@+id/textView2"
 		android:layout_gravity="left|center_vertical"
 		android:layout_marginTop="25dp"/>
@@ -33,7 +33,7 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="New Text"
+		android:text="@string/new_text"
 		android:id="@+id/otrFingerprint"
 		android:layout_gravity="left|center_vertical"
 		android:layout_margin="10dp"

@@ -15,8 +15,7 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/bubble"
 		android:baselineAligned="true"
-		android:layout_weight="0.0"
-		android:gravity="right"
+               android:gravity="right"
 		android:layout_gravity="center"
 		android:background="@drawable/bubble_leave">
 

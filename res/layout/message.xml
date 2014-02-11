@@ -18,8 +18,7 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/bubble"
 		android:baselineAligned="true"
-		android:layout_weight="0.0"
-		android:gravity="right"
+               android:gravity="right"
 		android:layout_gravity="left|center_vertical"
 		>
 
@@ -35,7 +34,7 @@
 			android:background="#6fbee3"
 			android:layout_marginTop="3dp"
 			android:layout_marginLeft="2dp"
-			android:text="nick"
+			android:text="@string/nick"
 			android:singleLine="false"
 			android:paddingLeft="8dp"
 			android:paddingTop="2dp"
@@ -50,6 +49,6 @@
 			android:id="@+id/text"
 			android:layout_gravity="center|left"
 			android:layout_marginLeft="10dp"
-			android:text="text"/>
+			android:text="@string/text"/>
 	</LinearLayout>
 </FrameLayout>
