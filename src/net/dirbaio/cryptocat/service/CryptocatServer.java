@@ -321,6 +321,13 @@ public class CryptocatServer implements ConversationItem
 			throw new IllegalStateException("Conversation must be disconnected");
 
 		conversations.remove(id);
+
+		if(conversations.isEmpty())
+		{
+			if(getState() == State.Connected)
+				disconnect();
+			CryptocatService.getInstance().removeServer(this.id);
+		}
 	}
 
 	@Override
