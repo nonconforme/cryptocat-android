@@ -2,6 +2,7 @@ package net.dirbaio.cryptocat.service;
 
 import android.os.Build;
 import net.dirbaio.cryptocat.ExceptionRunnable;
+import net.dirbaio.cryptocat.R;
 import net.dirbaio.cryptocat.serverlist.ServerConfig;
 import org.jivesoftware.smack.*;
 
@@ -39,7 +40,7 @@ public class CryptocatServer implements ConversationItem
 
     @Override
     public int getImage() {
-        return 0;
+        return R.drawable.ic_action_web_site;
     }
 
     @Override

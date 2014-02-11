@@ -19,7 +19,7 @@ public class ServerListFragment extends BaseListFragment
     @Override
     public void onResume() {
         super.onResume();
-        setListAdapter(new ServersAdapter(getActivity(), CryptocatService.getInstance().serverList.servers));
+        setListAdapter(new ServersAdapter(getAltContext(), CryptocatService.getInstance().serverList.servers));
 
                 /*
         serversListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,7 +96,7 @@ public class ServerListFragment extends BaseListFragment
             subtitle.setText(item.getDescription());
 
             ImageView icon = (ImageView) view.findViewById(R.id.image);
-            icon.setImageResource(android.R.color.transparent);
+            icon.setImageResource(R.drawable.ic_action_web_site);
 
             return view;
         }
